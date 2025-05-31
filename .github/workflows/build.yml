@@ -1,0 +1,52 @@
+name: Build Project
+run-name: Build Project
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        node-version: [20.x, 22.x]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Installing dependencies
+        run: pnpm install
+
+      - name: Linting
+        run: pnpm lint
+
+      - name: Building
+        run: pnpm build
+
+      - name: Preparing tests
+        run: pnpm pretest
+
+      - name: Running tests on Linux
+        run: xvfb-run -a pnpm test
+        if: runner.os == 'Linux'
+
+      - name: Running tests on macOS
+        run: pnpm test
+        if: runner.os == 'macOS'
+
+      - name: Running tests on Windows
+        run: pnpm test
+        if: runner.os == 'Windows'
