@@ -1,0 +1,348 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "main"
+  },
+  "files": {
+    "ignore": ["*.css"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80,
+    "attributePosition": "auto",
+    "formatWithErrors": false,
+    "useEditorconfig": true,
+    "ignore": ["node_modules", ".next", "dist", "build", ".dockerignore"]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "a11y": {
+        "recommended": true
+      },
+      "complexity": {
+        "all": true,
+        "useArrowFunction": "error",
+        "noUselessFragments": "error"
+      },
+      "correctness": {
+        "recommended": true,
+        "noUnusedFunctionParameters": "error",
+        "noUnusedImports": "error",
+        "noUnusedPrivateClassMembers": "error",
+        "noUnusedVariables": "error",
+        "useArrayLiterals": "error",
+        "useHookAtTopLevel": "error",
+        "useExhaustiveDependencies": "warn"
+      },
+      "nursery": {
+        "noCommonJs": "error",
+        "noDescendingSpecificity": "error",
+        "noDocumentCookie": "error",
+        "noDocumentImportInPage": "error",
+        "noDuplicateCustomProperties": "error",
+        "noDuplicateElseIf": "error",
+        "noDuplicateProperties": "error",
+        "noDuplicatedFields": "error",
+        "noDynamicNamespaceImportAccess": "error",
+        "noEnum": "error",
+        "noExportedImports": "error",
+        "noHeadElement": "error",
+        "noHeadImportInDocument": "error",
+        "noImgElement": "error",
+        "noIrregularWhitespace": "error",
+        "noMissingVarFunction": "error",
+        "noNestedTernary": "error",
+        "noOctalEscape": "error",
+        "noProcessEnv": "error",
+        "noSecrets": "info",
+        "noStaticElementInteractions": "error",
+        "noSubstr": "error",
+        "noTemplateCurlyInString": "error",
+        "noUnknownPseudoClass": "error",
+        "noUnknownPseudoElement": "error",
+        "noUnknownTypeSelector": "error",
+        "noUselessEscapeInRegex": "error",
+        "noUselessStringRaw": "error",
+        "noValueAtRule": "error",
+        "useAdjacentOverloadSignatures": "error",
+        "useAriaPropsSupportedByRole": "error",
+        "useAtIndex": "error",
+        "useCollapsedIf": "error",
+        "useComponentExportOnlyModules": {
+          "level": "error",
+          "options": {
+            "allowExportNames": ["metadata"]
+          }
+        },
+        "useConsistentCurlyBraces": "error",
+        "useDeprecatedReason": "error",
+        "useGoogleFontDisplay": "error",
+        "useGuardForIn": "error",
+        "useImportRestrictions": "error",
+        "useStrictMode": "error",
+        "useTrimStartEnd": "error",
+        "useValidAutocomplete": "error",
+        "useConsistentMemberAccessibility": {
+          "level": "error",
+          "options": {
+            "accessibility": "explicit"
+          }
+        },
+        "useSortedClasses": {
+          "level": "error",
+          "options": {
+            "attributes": ["classList"],
+            "functions": ["clsx", "cva", "tw"]
+          }
+        }
+      },
+      "performance": {
+        "recommended": true,
+        "noBarrelFile": "error",
+        "noReExportAll": "error",
+        "useTopLevelRegex": "error"
+      },
+      "security": {
+        "recommended": true
+      },
+      "style": {
+        "recommended": true,
+        "noDefaultExport": "error",
+        "noDoneCallback": "error",
+        "noNamespace": "error",
+        "noNamespaceImport": "error",
+        "noParameterProperties": "error",
+        "noRestrictedGlobals": "error",
+        "noShoutyConstants": "error",
+        "noYodaExpression": "error",
+        "useAsConstAssertion": "error",
+        "useBlockStatements": "error",
+        "useCollapsedElseIf": "error",
+        "useConsistentArrayType": "error",
+        "useConsistentBuiltinInstantiation": "error",
+        "useDefaultSwitchClause": "error",
+        "useExplicitLengthCheck": "error",
+        "useForOf": "error",
+        "useFragmentSyntax": "error",
+        "useShorthandAssign": "error",
+        "useThrowNewError": "error",
+        "useThrowOnlyError": "error",
+        "useImportType": "off",
+        "useNamingConvention": {
+          "level": "error",
+          "options": {
+            "strictCase": false,
+            "requireAscii": true
+          }
+        },
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": {
+            "strictCase": true,
+            "requireAscii": true,
+            "filenameCases": ["kebab-case"]
+          }
+        }
+      },
+      "suspicious": {
+        "recommended": true,
+        "noConsole": "off",
+        "noEmptyBlockStatements": "error",
+        "noEmptyInterface": "error",
+        "noEvolvingTypes": "error",
+        "noExplicitAny": "error",
+        "noMisplacedAssertion": "error",
+        "noSkippedTests": "error",
+        "noSparseArray": "error",
+        "useErrorMessage": "error",
+        "useNumberToFixedDigitsArgument": "error"
+      }
+    }
+  },
+  "organizeImports": {
+    "enabled": true,
+    "ignore": ["node_modules", ".next", "dist", "public", "build"]
+  },
+  "css": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineEnding": "lf",
+      "lineWidth": 80,
+      "quoteStyle": "double"
+    },
+    "linter": {
+      "enabled": true
+    },
+    "parser": {
+      "allowWrongLineComments": false,
+      "cssModules": true
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "always",
+      "semicolons": "always",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "trailingCommas": "none",
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "attributePosition": "auto"
+    },
+    "globals": ["React", "JSX"]
+  },
+  "json": {
+    "formatter": {
+      "enabled": true,
+      "trailingCommas": "none"
+    },
+    "parser": {
+      "allowTrailingCommas": false
+    },
+    "linter": {
+      "enabled": true
+    }
+  },
+  "overrides": [
+    {
+      "include": ["*.js?(x)", "*.ts?(x)"]
+    },
+    {
+      "include": ["env.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useNamingConvention": {
+              "level": "error",
+              "options": {
+                "strictCase": true,
+                "requireAscii": true,
+                "conventions": [
+                  {
+                    "selector": {
+                      "kind": "objectLiteralProperty"
+                    },
+                    "formats": ["camelCase", "CONSTANT_CASE"]
+                  }
+                ]
+              }
+            }
+          },
+          "nursery": {
+            "noProcessEnv": {
+              "level": "off"
+            }
+          }
+        }
+      }
+    },
+    {
+      "include": [
+        "app/**/page.tsx",
+        "app/**/not-found.tsx",
+        "app/**/layout.tsx",
+        "next.config.ts",
+        "postcss.config.mjs",
+        "commitlint.config.mjs",
+        "middleware.ts",
+        "emails/**/*.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
+      "include": ["constants.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useNamingConvention": {
+              "level": "error",
+              "options": {
+                "strictCase": true,
+                "requireAscii": true,
+                "conventions": [
+                  {
+                    "selector": {
+                      "kind": "objectLiteralProperty"
+                    },
+                    "formats": ["camelCase", "PascalCase", "CONSTANT_CASE"]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "include": ["server/auth/**/*.config.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useNamingConvention": {
+              "level": "error",
+              "options": {
+                "strictCase": false,
+                "requireAscii": true,
+                "conventions": [
+                  {
+                    "selector": {
+                      "kind": "interface"
+                    },
+                    "formats": [
+                      "snake_case",
+                      "camelCase",
+                      "PascalCase",
+                      "CONSTANT_CASE"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "include": ["server/database/schema/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useNamingConvention": {
+              "level": "error",
+              "options": {
+                "requireAscii": true,
+                "conventions": [
+                  {
+                    "selector": {
+                      "kind": "objectLiteralProperty"
+                    },
+                    "formats": ["snake_case", "camelCase"]
+                  }
+                ]
+              }
+            }
+          },
+          "performance": {
+            "noReExportAll": "off",
+            "noBarrelFile": "off"
+          }
+        }
+      }
+    }
+  ]
+}
