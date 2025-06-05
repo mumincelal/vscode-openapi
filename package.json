@@ -3,17 +3,29 @@
   "displayName": "vscode-openapi",
   "description": "A VS Code extension for viewing, editing, and validating OpenAPI specs to streamline API development.",
   "version": "0.0.1",
+  "license": "MIT",
+  "publisher": "mumincelal",
+  "homepage": "https://github.com/mumincelal/vscode-openapi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mumincelal/vscode-openapi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mumincelal/vscode-openapi/issues"
+  },
   "engines": {
     "vscode": "^1.100.0"
   },
   "categories": ["Other"],
-  "activationEvents": [],
+  "keywords": ["vscode", "openapi", "swagger", "api", "development", "preview"],
   "main": "./out/extension.js",
+  "activationEvents": [],
   "contributes": {
     "commands": [
       {
-        "command": "vscode-openapi.helloWorld",
-        "title": "Hello World"
+        "command": "vscode-openapi.preview",
+        "category": "VsCode OpenAPI",
+        "title": "Preview OpenAPI"
       }
     ]
   },
@@ -33,6 +45,7 @@
     "@biomejs/biome": "^1.9.4",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "@types/express": "^5.0.2",
     "@types/mocha": "^10.0.10",
     "@types/node": "~22.15.29",
     "@types/vscode": "^1.100.0",
@@ -41,5 +54,10 @@
     "lint-staged": "^16.1.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1",
+    "swagger-ui-dist": "^5.22.0"
   }
 }
