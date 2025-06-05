@@ -1,21 +1,19 @@
-import http, { type Server as HttpServer } from "node:http";
+import http, { type Server } from "node:http";
 import express from "express";
 import { Logger } from "./logger";
 
-export class Server {
+export class HttpServer {
   private readonly port: number;
-  private readonly server: HttpServer;
+  private readonly server: Server;
 
-  constructor(port: number, extensionPath: string) {
+  public constructor(port: number, extensionPath: string) {
     this.port = port;
-
     const app = express();
     this.server = http.createServer(app);
-
     app.use(express.static(extensionPath));
   }
 
-  public getServer(): HttpServer {
+  public getServer(): Server {
     return this.server;
   }
 

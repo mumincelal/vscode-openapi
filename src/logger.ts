@@ -1,4 +1,4 @@
-import { OutputChannel, window } from "vscode";
+import { window } from "vscode";
 
 export class Logger {
   private static readonly instance =

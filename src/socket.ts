@@ -6,19 +6,19 @@ export class Socket {
   private readonly socket: SocketIoServer;
   private socketConnections = new Map<string, SocketIoSocket>();
 
-  constructor(server: HttpServer) {
+  public constructor(server: HttpServer) {
     this.socket = new SocketIoServer(server);
   }
 
   public connect(): void {
     this.socket.on("connection", (socket) => {
-      Logger.log("A client connected");
+      Logger.log("Connection established");
 
       const key = crypto.randomUUID();
       this.socketConnections.set(key, socket);
 
       socket.on("disconnect", () => {
-        Logger.log("A client disconnected");
+        Logger.log("Connection terminated");
         this.socketConnections.delete(key);
       });
     });
@@ -26,10 +26,6 @@ export class Socket {
 
   public emit(event: string, data: any): void {
     this.socket.emit(event, data);
-  }
-
-  public getSocketConnections(): Map<string, SocketIoSocket> {
-    return this.socketConnections;
   }
 
   public async shutdown(): Promise<void> {

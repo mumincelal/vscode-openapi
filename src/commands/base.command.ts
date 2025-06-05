@@ -1,5 +1,5 @@
 import { Uri } from "vscode";
-import { BaseServiceType } from "../services/base-service";
+import { BaseServiceType } from "../controllers/base.controller";
 import { Command } from "../types";
 
 export abstract class BaseCommand<T extends BaseServiceType>

@@ -1,20 +1,30 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
+/**
+ * The module 'vscode' contains the VS Code extensibility API
+ * Import the module and reference it with the alias vscode in your code below
+ */
 import * as vscode from "vscode";
 import { PreviewCommand } from "./commands/preview.commad";
-import { Server } from "./server";
-import { InitializeService } from "./services/initialize.service";
-import { PreviewService } from "./services/preview.service";
+import { PreviewController } from "./controllers/preview.controller";
+import { ServerController } from "./controllers/server.controller";
 import { Command } from "./types";
 
-const handleError = (error: Error) => {
-  if (error?.message) {
-    vscode.window.showErrorMessage(error.message);
-  }
+export function activate(context: vscode.ExtensionContext): void {
+  const previewService = new PreviewController(
+    context,
+    "vscode-openapi://preview",
+    9999
+  );
+  register(context, new PreviewCommand(previewService), "preview");
+}
 
-  return error;
-};
-
+/**
+ * Registers a command with the given context and command name.
+ * The command will execute the provided command's execute method and handle errors.
+ *
+ * @param context - The extension context to register the command with.
+ * @param command - The command to register.
+ * @param commandName - The name of the command to register.
+ */
 const register = (
   context: vscode.ExtensionContext,
   command: Command,
@@ -31,20 +41,22 @@ const register = (
   context.subscriptions.push(disposable);
 };
 
-/*
- * This method is called when your extension is activated
- * Your extension is activated the very first time the command is executed
+/**
+ * Handles errors by displaying an error message in the VS Code window.
+ * If the error has a message, it will be shown to the user.
+ *
+ * @param error - The error to handle.
+ * @returns The error that was passed in.
  */
-export function activate(context: vscode.ExtensionContext) {
-  const previewService = new PreviewService(context);
-  register(context, new PreviewCommand(previewService), "preview");
+const handleError = (error: Error) => {
+  if (error?.message) {
+    vscode.window.showErrorMessage(error.message);
+  }
 
-  // const webviewService = new WebViewService(context);
-  // register(context, new WebViewCommand(webviewService), "preview");
-}
+  return error;
+};
 
-// This method is called when your extension is deactivated
-export function deactivate() {
-  const initializeService = new InitializeService("");
-  initializeService.stop();
+export function deactivate(): void {
+  const server = new ServerController("");
+  server.stop();
 }
