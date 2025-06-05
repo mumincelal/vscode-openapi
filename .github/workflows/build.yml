@@ -36,8 +36,8 @@ jobs:
       - name: Building
         run: pnpm build
 
-      - name: Preparing tests
-        run: pnpm pretest
+      # - name: Preparing tests
+      #   run: pnpm pretest
 
       - name: Running tests on Linux
         run: xvfb-run -a pnpm test
