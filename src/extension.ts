@@ -7,8 +7,6 @@ import { InitializeService } from "./services/initialize.service";
 import { PreviewService } from "./services/preview.service";
 import { Command } from "./types";
 
-let server: Server;
-
 const handleError = (error: Error) => {
   if (error?.message) {
     vscode.window.showErrorMessage(error.message);
@@ -33,8 +31,10 @@ const register = (
   context.subscriptions.push(disposable);
 };
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+/*
+ * This method is called when your extension is activated
+ * Your extension is activated the very first time the command is executed
+ */
 export function activate(context: vscode.ExtensionContext) {
   const previewService = new PreviewService(context);
   register(context, new PreviewCommand(previewService), "preview");

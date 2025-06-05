@@ -1,4 +1,3 @@
-// biome-ignore lint/style/noNamespaceImport: <explanation>
 import * as vscode from "vscode";
 
 export const preview = async (uri?: vscode.Uri) => {

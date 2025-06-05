@@ -1,9 +1,7 @@
-// biome-ignore lint/style/noNamespaceImport: <explanation>
 import * as assert from "node:assert";
 
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
-// biome-ignore lint/style/noNamespaceImport: <explanation>
 import * as vscode from "vscode";
 // import * as myExtension from '../../extension';
 
