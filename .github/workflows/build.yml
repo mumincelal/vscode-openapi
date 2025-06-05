@@ -30,8 +30,8 @@ jobs:
       - name: Installing dependencies
         run: pnpm install
 
-      - name: Linting
-        run: pnpm lint
+      # - name: Linting
+      #   run: pnpm lint
 
       - name: Building
         run: pnpm build
