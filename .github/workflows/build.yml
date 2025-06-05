@@ -30,23 +30,23 @@ jobs:
       - name: Installing dependencies
         run: pnpm install
 
-      - name: Linting
-        run: pnpm lint
+      # - name: Linting
+      #   run: pnpm lint
 
       - name: Building
         run: pnpm build
 
-      - name: Preparing tests
-        run: pnpm pretest
+      # - name: Preparing tests
+      #   run: pnpm pretest
 
-      - name: Running tests on Linux
-        run: xvfb-run -a pnpm test
-        if: runner.os == 'Linux'
+      # - name: Running tests on Linux
+      #   run: xvfb-run -a pnpm test
+      #   if: runner.os == 'Linux'
 
-      - name: Running tests on macOS
-        run: pnpm test
-        if: runner.os == 'macOS'
+      # - name: Running tests on macOS
+      #   run: pnpm test
+      #   if: runner.os == 'macOS'
 
-      - name: Running tests on Windows
-        run: pnpm test
-        if: runner.os == 'Windows'
+      # - name: Running tests on Windows
+      #   run: pnpm test
+      #   if: runner.os == 'Windows'

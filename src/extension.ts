@@ -1,32 +1,50 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-// biome-ignore lint/style/noNamespaceImport: <explanation>
 import * as vscode from "vscode";
+import { PreviewCommand } from "./commands/preview.commad";
+import { Server } from "./server";
+import { InitializeService } from "./services/initialize.service";
+import { PreviewService } from "./services/preview.service";
+import { Command } from "./types";
+
+let server: Server;
+
+const handleError = (error: Error) => {
+  if (error?.message) {
+    vscode.window.showErrorMessage(error.message);
+  }
+
+  return error;
+};
+
+const register = (
+  context: vscode.ExtensionContext,
+  command: Command,
+  commandName: string
+) => {
+  const proxy = (...args: never[]) =>
+    command.execute(...args).catch(handleError);
+
+  const disposable = vscode.commands.registerCommand(
+    `vscode-openapi.${commandName}`,
+    proxy
+  );
+
+  context.subscriptions.push(disposable);
+};
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
-  console.log(
-    'Congratulations, your extension "vscode-openapi" is now active!'
-  );
+  const previewService = new PreviewService(context);
+  register(context, new PreviewCommand(previewService), "preview");
 
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
-  const disposable = vscode.commands.registerCommand(
-    "vscode-openapi.helloWorld",
-    () => {
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
-      vscode.window.showInformationMessage("Hello World from vscode-openapi!");
-    }
-  );
-
-  context.subscriptions.push(disposable);
+  // const webviewService = new WebViewService(context);
+  // register(context, new WebViewCommand(webviewService), "preview");
 }
 
 // This method is called when your extension is deactivated
-// biome-ignore lint/suspicious/noEmptyBlockStatements: <explanation>
-export function deactivate() {}
+export function deactivate() {
+  const initializeService = new InitializeService("");
+  initializeService.stop();
+}

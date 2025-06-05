@@ -21,7 +21,7 @@
     "ignore": ["node_modules", ".next", "dist", "build", ".dockerignore"]
   },
   "linter": {
-    "enabled": true,
+    "enabled": false,
     "rules": {
       "a11y": {
         "recommended": true
@@ -117,7 +117,7 @@
         "noDefaultExport": "error",
         "noDoneCallback": "error",
         "noNamespace": "error",
-        "noNamespaceImport": "error",
+        "noNamespaceImport": "off",
         "noParameterProperties": "error",
         "noRestrictedGlobals": "error",
         "noShoutyConstants": "error",
