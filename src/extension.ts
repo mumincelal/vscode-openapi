@@ -57,6 +57,5 @@ const handleError = (error: Error) => {
 };
 
 export function deactivate(): void {
-  const server = new ServerController("");
-  server.stop();
+  // Clean up any resources or connections
 }

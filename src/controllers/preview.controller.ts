@@ -21,10 +21,12 @@ import { ServerController } from "./server.controller";
 export class PreviewController extends BaseController {
   private readonly uri: Uri;
   private readonly eventEmitter: EventEmitter<any>;
-  private previewPanel: WebviewPanel | undefined;
   private readonly port: number;
   private readonly server: ServerController;
-  private fileWatchers: Map<string, FileSystemWatcher> = new Map();
+  private previews: Map<
+    string,
+    { panel: WebviewPanel; watcher: FileSystemWatcher }
+  > = new Map();
 
   public constructor(
     protected context: ExtensionContext,
@@ -32,14 +34,11 @@ export class PreviewController extends BaseController {
     protected serverPort: number
   ) {
     super(context);
-
     this.uri = Uri.parse(previewUrl);
     this.eventEmitter = new EventEmitter();
-    this.previewPanel = undefined;
     this.port = serverPort;
     this.server = new ServerController(context.extensionPath);
     this.server.start();
-
     this.register();
   }
 
@@ -62,8 +61,12 @@ export class PreviewController extends BaseController {
 
   public async execute(): Promise<void> {
     const fileController = new FileController(this.context);
-
     const activeFile = fileController.getActiveFile();
+
+    if (this.previews.has(activeFile)) {
+      this.previews.get(activeFile)!.panel.reveal(ViewColumn.Active);
+      return;
+    }
 
     const socket = this.server.getSocket();
 
@@ -101,20 +104,13 @@ export class PreviewController extends BaseController {
       }
     });
 
-    this.fileWatchers.set(activeFile, watcher);
-
-    this.display();
-    this.update();
-  }
-
-  private display(): void {
     const editor = window.activeTextEditor;
     if (!editor) {
       window.showErrorMessage("No active text editor found.");
       return;
     }
 
-    this.previewPanel = window.createWebviewPanel(
+    const panel = window.createWebviewPanel(
       "openApiPreview",
       `OpenApi Preview: ${path.basename(editor.document.fileName)}`,
       ViewColumn.Active,
@@ -124,7 +120,7 @@ export class PreviewController extends BaseController {
       }
     );
 
-    this.previewPanel.webview.html = `
+    panel.webview.html = `
       <html>
         <body style="margin:0px;padding:0px;background:#fafafa;">
           <div style="position:fixed;height:100%;width:100%;">
@@ -133,18 +129,22 @@ export class PreviewController extends BaseController {
         </body>
       </html>`;
 
-    this.previewPanel.onDidDispose(() => {
-      this.previewPanel = undefined;
+    panel.onDidDispose(() => {
+      watcher.dispose();
+      this.server.stop();
+      this.previews.delete(activeFile);
     }, null);
+
+    this.previews.set(activeFile, { panel, watcher });
+    this.update(activeFile);
   }
 
-  private update(): void {
-    if (this.previewPanel) {
-      this.previewPanel.reveal(ViewColumn.Active);
-    } else {
-      this.display();
-    }
+  private update(filePath: string): void {
+    const preview = this.previews.get(filePath);
 
-    this.eventEmitter.fire(this.uri);
+    if (preview) {
+      preview.panel.reveal(ViewColumn.Active);
+      this.eventEmitter.fire(this.uri);
+    }
   }
 }
