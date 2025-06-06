@@ -1,15 +1,14 @@
 import { Uri } from "vscode";
-import { BaseServiceType } from "../controllers/base.controller";
-import { Command } from "../types";
+import { BaseControllerInterface } from "../controllers/base.controller";
 
-export abstract class BaseCommand<T extends BaseServiceType>
+export interface Command {
+  execute(uri?: Uri): Promise<void>;
+}
+
+export abstract class BaseCommand<T extends BaseControllerInterface>
   implements Command
 {
-  constructor(protected service: T) {}
+  constructor(protected controller: T) {}
 
   public abstract execute(uri?: Uri): Promise<void>;
-
-  protected async executeService(): Promise<void> {
-    await this.service.execute();
-  }
 }

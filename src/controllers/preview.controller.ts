@@ -1,5 +1,4 @@
 import {
-  CancellationToken,
   EventEmitter,
   ExtensionContext,
   ProviderResult,
@@ -10,7 +9,10 @@ import {
   window,
   workspace
 } from "vscode";
+import { Logger } from "../logger";
+import { bundle } from "../utils/openapi.util";
 import { BaseController } from "./base.controller";
+import { FileController } from "./file.controller";
 import { ServerController } from "./server.controller";
 
 export class PreviewController extends BaseController {
@@ -18,6 +20,7 @@ export class PreviewController extends BaseController {
   private readonly eventEmitter: EventEmitter<any>;
   private previewPanel: WebviewPanel | undefined;
   private readonly port: number;
+  private readonly server: ServerController;
 
   public constructor(
     protected context: ExtensionContext,
@@ -30,11 +33,10 @@ export class PreviewController extends BaseController {
     this.eventEmitter = new EventEmitter();
     this.previewPanel = undefined;
     this.port = serverPort;
+    this.server = new ServerController(context.extensionPath);
 
     this.register();
-
-    // const server = new ServerController(context.extensionPath);
-    // server.start();
+    this.server.start();
   }
 
   private register(): void {
@@ -54,6 +56,39 @@ export class PreviewController extends BaseController {
     this.context.subscriptions.push(disposable);
   }
 
+  public async execute(): Promise<void> {
+    const fileController = new FileController(this.context);
+
+    const activeFileName = fileController.getActiveFile();
+    const activeFilePath = fileController.getActiveFilePath();
+
+    const socket = this.server.getSocket();
+
+    socket.receive("prepare-ui", async () => {
+      try {
+        const bundledSchema = await bundle(activeFileName);
+        Logger.log(
+          `Bundled schema for ${activeFileName}: ${JSON.stringify(bundledSchema)}`
+        );
+        if (!bundledSchema) {
+          throw new Error("Bundled schema is empty or undefined.");
+        }
+        socket.send("update-ui", bundledSchema);
+      } catch (error) {
+        socket.send("error", error);
+        Logger.error(`Error bundling schema: ${error}`);
+      }
+    });
+
+    if (this.previewPanel) {
+      this.previewPanel.reveal(ViewColumn.Active);
+    } else {
+      this.display();
+    }
+
+    this.eventEmitter.fire(this.uri);
+  }
+
   private display(): void {
     const editor = window.activeTextEditor;
     if (!editor) {
@@ -64,7 +99,7 @@ export class PreviewController extends BaseController {
     this.previewPanel = window.createWebviewPanel(
       "openApiPreview",
       "OpenApi Preview",
-      ViewColumn.Beside,
+      ViewColumn.Active,
       {
         enableScripts: true,
         retainContextWhenHidden: true
@@ -79,18 +114,9 @@ export class PreviewController extends BaseController {
           </div>
         </body>
       </html>`;
+
     this.previewPanel.onDidDispose(() => {
       this.previewPanel = undefined;
     }, null);
-  }
-
-  public async execute(): Promise<void> {
-    if (this.previewPanel) {
-      this.previewPanel.reveal(ViewColumn.Beside);
-    } else {
-      this.display();
-    }
-
-    this.eventEmitter.fire(this.uri);
   }
 }

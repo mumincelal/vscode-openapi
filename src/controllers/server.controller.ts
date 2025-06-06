@@ -19,4 +19,12 @@ export class ServerController {
     await this.socket.shutdown();
     await this.httpServer.shutdown();
   }
+
+  public getSocket(): Socket {
+    return this.socket;
+  }
+
+  public getHttpServer(): HttpServer {
+    return this.httpServer;
+  }
 }

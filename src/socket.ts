@@ -24,8 +24,16 @@ export class Socket {
     });
   }
 
-  public emit(event: string, data: any): void {
-    this.socket.emit(event, data);
+  public receive(eventName: string, callback: (data: unknown) => void): void {
+    this.socket.on(eventName, (data) => {
+      Logger.log(`Data received: ${JSON.stringify(data)}`);
+      callback(data);
+    });
+  }
+
+  public send(eventName: string, data: unknown): void {
+    Logger.log(`Data sent to socket: ${JSON.stringify(data)}`);
+    this.socket.emit(eventName, JSON.stringify(data));
   }
 
   public async shutdown(): Promise<void> {

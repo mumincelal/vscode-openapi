@@ -3,10 +3,10 @@
  * Import the module and reference it with the alias vscode in your code below
  */
 import * as vscode from "vscode";
+import { Command } from "./commands/base.command";
 import { PreviewCommand } from "./commands/preview.commad";
 import { PreviewController } from "./controllers/preview.controller";
 import { ServerController } from "./controllers/server.controller";
-import { Command } from "./types";
 
 export function activate(context: vscode.ExtensionContext): void {
   const previewService = new PreviewController(
