@@ -14,6 +14,10 @@ export class Logger {
     Logger.instance.appendLine(`[error] ${message}`);
   }
 
+  public static info(message: string): void {
+    Logger.instance.appendLine(`[info] ${message}`);
+  }
+
   public static warn(message: string): void {
     Logger.instance.appendLine(`[warn] ${message}`);
   }

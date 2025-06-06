@@ -67,11 +67,18 @@
           var errorsContainer = document.getElementById('errors-container');
           var errors = document.getElementById('errors');
 
-          buildSwaggerUI({});
           var socket = io.connect();
 
           socket.on('update-ui', function(data) {
             console.log(data);
+
+            // Only build Swagger UI when a valid spec is received
+            if (!window.editor) {
+              buildSwaggerUI(data);
+            } else {
+              editor.specActions.updateLoadingStatus("success");
+              editor.specActions.updateSpec(data);
+            }
 
             var scrollElement = document.getElementsByClassName('Pane2')[0];
             var tempScrollTop = scrollElement ? scrollElement.scrollTop : 0;
@@ -80,9 +87,6 @@
             var swaggerEditor = document.getElementById('swagger-editor');
             swaggerEditor.style.display = 'block';
             errorsContainer.style.display = 'none';
-
-            editor.specActions.updateLoadingStatus("success");
-            editor.specActions.updateSpec(data);
 
             if (tempScrollTop > 0) {
               setTimeout(function() {

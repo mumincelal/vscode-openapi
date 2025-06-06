@@ -24,6 +24,12 @@ export class Socket {
     });
   }
 
+  public onClientConnected(
+    callback: (clientSocket: SocketIoSocket) => void
+  ): void {
+    this.socket.on("connection", callback);
+  }
+
   public receive(eventName: string, callback: (data: unknown) => void): void {
     this.socket.on(eventName, (data) => {
       Logger.log(`Data received: ${JSON.stringify(data)}`);
@@ -32,7 +38,7 @@ export class Socket {
   }
 
   public send(eventName: string, data: unknown): void {
-    Logger.log(`Data sent to socket: ${JSON.stringify(data)}`);
+    Logger.log(`Data sent to socket for event: ${eventName}`);
     this.socket.emit(eventName, JSON.stringify(data));
   }
 
