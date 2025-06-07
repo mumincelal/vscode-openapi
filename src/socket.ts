@@ -6,30 +6,41 @@ export class Socket {
   private readonly socket: SocketIoServer;
   private socketConnections = new Map<string, SocketIoSocket>();
 
-  constructor(server: HttpServer) {
+  public constructor(server: HttpServer) {
     this.socket = new SocketIoServer(server);
   }
 
   public connect(): void {
     this.socket.on("connection", (socket) => {
-      Logger.log("A client connected");
+      Logger.log("Connection established");
 
       const key = crypto.randomUUID();
+      Logger.log(`Socket key: ${key}`);
       this.socketConnections.set(key, socket);
 
       socket.on("disconnect", () => {
-        Logger.log("A client disconnected");
+        Logger.log("Connection terminated");
         this.socketConnections.delete(key);
       });
     });
   }
 
-  public emit(event: string, data: any): void {
-    this.socket.emit(event, data);
+  public onClientConnected(
+    callback: (clientSocket: SocketIoSocket) => void
+  ): void {
+    this.socket.on("connection", callback);
   }
 
-  public getSocketConnections(): Map<string, SocketIoSocket> {
-    return this.socketConnections;
+  public receive(eventName: string, callback: (data: unknown) => void): void {
+    this.socket.on(eventName, (data) => {
+      Logger.log(`Data received: ${JSON.stringify(data)}`);
+      callback(data);
+    });
+  }
+
+  public send(eventName: string, data: unknown): void {
+    Logger.log(`Data sent to socket for event: ${eventName}`);
+    this.socket.emit(eventName, JSON.stringify(data));
   }
 
   public async shutdown(): Promise<void> {

@@ -1,10 +1,10 @@
 import { ExtensionContext } from "vscode";
 
-export type BaseServiceType = {
+export interface BaseControllerInterface {
   execute: () => Promise<void>;
-};
+}
 
-export abstract class BaseService implements BaseServiceType {
+export abstract class BaseController implements BaseControllerInterface {
   constructor(protected context: ExtensionContext) {}
 
   public abstract execute(): Promise<void>;

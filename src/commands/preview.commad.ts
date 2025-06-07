@@ -1,12 +1,12 @@
-import { PreviewService } from "../services/preview.service";
+import { PreviewController } from "../controllers/preview.controller";
 import { BaseCommand } from "./base.command";
 
-export class PreviewCommand extends BaseCommand<PreviewService> {
-  constructor(service: PreviewService) {
-    super(service);
+export class PreviewCommand extends BaseCommand<PreviewController> {
+  constructor(controller: PreviewController) {
+    super(controller);
   }
 
   public async execute(): Promise<void> {
-    await this.service.execute();
+    await this.controller.execute();
   }
 }

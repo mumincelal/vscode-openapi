@@ -1,4 +1,4 @@
-import { OutputChannel, window } from "vscode";
+import { window } from "vscode";
 
 export class Logger {
   private static readonly instance =
@@ -12,6 +12,10 @@ export class Logger {
 
   public static error(message: string): void {
     Logger.instance.appendLine(`[error] ${message}`);
+  }
+
+  public static info(message: string): void {
+    Logger.instance.appendLine(`[info] ${message}`);
   }
 
   public static warn(message: string): void {

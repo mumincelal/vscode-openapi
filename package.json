@@ -56,6 +56,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@apidevtools/json-schema-ref-parser": "^13.0.2",
     "express": "^5.1.0",
     "socket.io": "^4.8.1",
     "swagger-ui-dist": "^5.22.0"
