@@ -6,7 +6,6 @@ import * as vscode from "vscode";
 import { Command } from "./commands/base.command";
 import { PreviewCommand } from "./commands/preview.commad";
 import { PreviewController } from "./controllers/preview.controller";
-import { ServerController } from "./controllers/server.controller";
 
 export function activate(context: vscode.ExtensionContext): void {
   const previewService = new PreviewController(

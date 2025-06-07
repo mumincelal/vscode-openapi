@@ -52,60 +52,56 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       function buildSwaggerUI(jsonSpec) {
-          const ui = SwaggerUIBundle({
-            spec: jsonSpec,
-            dom_id: '#swagger-editor',
-            presets: [
-              SwaggerUIBundle.presets.apis
-            ],
-            layout: "BaseLayout"
-          })
-          window.editor = ui;
-        }
+        const ui = SwaggerUIBundle({
+          spec: jsonSpec,
+          dom_id: '#swagger-editor',
+          presets: [
+            SwaggerUIBundle.presets.apis
+          ],
+          layout: "BaseLayout"
+        })
+        window.editor = ui;
+      }
 
-        window.onload = function () {
-          var errorsContainer = document.getElementById('errors-container');
-          var errors = document.getElementById('errors');
+      window.onload = function () {
+        var errorsContainer = document.getElementById('errors-container');
+        var errors = document.getElementById('errors');
 
-          var socket = io.connect();
+        var socket = io.connect();
 
-          socket.on('update-ui', function(data) {
-            console.log(data);
+        socket.on('update-ui', function(data) {
+          // Only build Swagger UI when a valid spec is received
+          if (!window.editor) {
+            buildSwaggerUI(data);
+          } else {
+            editor.specActions.updateLoadingStatus("success");
+            editor.specActions.updateSpec(data);
+          }
 
-            // Only build Swagger UI when a valid spec is received
-            if (!window.editor) {
-              buildSwaggerUI(data);
-            } else {
-              editor.specActions.updateLoadingStatus("success");
-              editor.specActions.updateSpec(data);
-            }
+          var scrollElement = document.getElementsByClassName('Pane2')[0];
+          var tempScrollTop = scrollElement ? scrollElement.scrollTop : 0;
 
-            var scrollElement = document.getElementsByClassName('Pane2')[0];
-            var tempScrollTop = scrollElement ? scrollElement.scrollTop : 0;
-            console.log("Scroll position:" + tempScrollTop);
+          var swaggerEditor = document.getElementById('swagger-editor');
+          swaggerEditor.style.display = 'block';
+          errorsContainer.style.display = 'none';
 
-            var swaggerEditor = document.getElementById('swagger-editor');
-            swaggerEditor.style.display = 'block';
-            errorsContainer.style.display = 'none';
+          if (tempScrollTop > 0) {
+            setTimeout(function() {
+              scrollElement.scrollTop = tempScrollTop;
+            }, 100);
+          }
+        });
 
-            if (tempScrollTop > 0) {
-              setTimeout(function() {
-                scrollElement.scrollTop = tempScrollTop;
-              }, 100);
-            }
-          });
+        socket.on('error', function(data) {
+          errorsContainer.style.display = 'block';
+          var swaggerEditor = document.getElementById('swagger-editor');
+          swaggerEditor.style.display = 'none';
+          data = data.replace(/[^\\]\\n/g, '<br>').replace(/\\t/g, '&emsp;');
+          errors.innerHTML = data;
+        });
 
-          socket.on('error', function(data) {
-            errorsContainer.style.display = 'block';
-            var swaggerEditor = document.getElementById('swagger-editor');
-            swaggerEditor.style.display = 'none';
-            console.log(data);
-            data = data.replace(/[^\\]\\n/g, '<br>').replace(/\\t/g, '&emsp;');
-            errors.innerHTML = data;
-          });
-
-          socket.emit('prepare-ui', {});
-        }
+        socket.emit('prepare-ui', {});
+      }
     </script>
 
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position:absolute;width:0;height:0">

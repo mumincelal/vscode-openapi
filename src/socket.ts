@@ -15,6 +15,7 @@ export class Socket {
       Logger.log("Connection established");
 
       const key = crypto.randomUUID();
+      Logger.log(`Socket key: ${key}`);
       this.socketConnections.set(key, socket);
 
       socket.on("disconnect", () => {
