@@ -1,7 +1,7 @@
 {
   "name": "vscode-openapi",
   "displayName": "vscode-openapi",
-  "description": "A VS Code extension for viewing, editing, and validating OpenAPI specs to streamline API development.",
+  "description": "A VS Code extension for viewing OpenAPI specs to streamline API development.",
   "version": "0.0.1",
   "license": "MIT",
   "publisher": "mumincelal",
@@ -25,9 +25,29 @@
       {
         "command": "vscode-openapi.preview",
         "category": "VsCode OpenAPI",
-        "title": "Preview OpenAPI"
+        "title": "Preview Swagger File"
       }
-    ]
+    ],
+    "keybindings": [],
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "resourceLangId == json",
+          "command": "vscode-openapi.preview",
+          "group": "OpenAPIPreviewer"
+        },
+        {
+          "when": "resourceLangId == yaml",
+          "command": "vscode-openapi.preview",
+          "group": "OpenAPIPreviewer"
+        },
+        {
+          "when": "resourceLangId == yml",
+          "command": "vscode-openapi.preview",
+          "group": "OpenAPIPreviewer"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run compile",
