@@ -1,6 +1,5 @@
-import { ExtensionContext, window } from "vscode";
+import { type ExtensionContext, window } from "vscode";
 import { Logger } from "../logger";
-import { getPathFromFile } from "../utils/file.util";
 import { BaseController } from "./base.controller";
 
 export class FileController extends BaseController {
@@ -25,14 +24,5 @@ export class FileController extends BaseController {
     Logger.log(`Active file found: ${fileName}`);
 
     return fileName;
-  }
-
-  public getActiveFilePath(): string {
-    const activeFile = this.getActiveFile();
-    const activeFilePath = getPathFromFile(activeFile);
-
-    Logger.log(`Active file path found: ${activeFilePath}`);
-
-    return activeFilePath;
   }
 }

@@ -1,4 +1,6 @@
-import refParser, { JSONSchema } from "@apidevtools/json-schema-ref-parser";
+import refParser, {
+  type JSONSchema
+} from "@apidevtools/json-schema-ref-parser";
 import { Logger } from "../logger";
 
 export const bundle = async (file: string): Promise<JSONSchema> => {

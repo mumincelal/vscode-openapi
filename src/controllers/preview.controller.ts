@@ -1,14 +1,15 @@
 import path from "node:path";
+import type { Socket } from "socket.io";
 import {
   EventEmitter,
-  ExtensionContext,
-  FileSystemWatcher,
-  ProviderResult,
+  type ExtensionContext,
+  type FileSystemWatcher,
+  type ProviderResult,
   RelativePattern,
-  TextDocumentContentProvider,
+  type TextDocumentContentProvider,
   Uri,
   ViewColumn,
-  WebviewPanel,
+  type WebviewPanel,
   window,
   workspace
 } from "vscode";
@@ -62,26 +63,28 @@ export class PreviewController extends BaseController {
   public async execute(): Promise<void> {
     const fileController = new FileController(this.context);
     const activeFile = fileController.getActiveFile();
+    Logger.log(`Active file: ${activeFile}`);
 
     if (this.previews.has(activeFile)) {
       this.previews.get(activeFile)!.panel.reveal(ViewColumn.Active);
       return;
     }
 
-    const socket = this.server.getSocket();
+    const serverSocket = this.server.getSocket();
 
-    socket.onClientConnected((clientSocket) => {
-      clientSocket.on("prepare-ui", async () => {
-        try {
-          const bundledSchema = await bundle(activeFile);
-          if (!bundledSchema) {
-            throw new Error("Bundled schema is empty or undefined.");
-          }
-          clientSocket.emit("update-ui", bundledSchema);
-        } catch (error) {
-          clientSocket.emit("error", error);
-          Logger.error(`Error bundling schema: ${error}`);
-        }
+    serverSocket.on("connection", (socket) => {
+      Logger.log("Connection established");
+
+      Logger.log(`Socket: ${socket.id}`);
+      socket.join(socket.id);
+
+      socket.on("prepare-ui", async () => {
+        this.emitToRoom(socket, socket.id, activeFile);
+      });
+
+      socket.on("disconnect", () => {
+        Logger.log("Connection terminated for socket: " + socket.id);
+        socket.leave(socket.id);
       });
     });
 
@@ -90,18 +93,13 @@ export class PreviewController extends BaseController {
     );
 
     watcher.onDidChange(async () => {
-      Logger.info(`File changed: ${activeFile}`);
+      Logger.log(`File changed: ${activeFile}`);
 
-      try {
-        const bundledSchema = await bundle(activeFile);
-        if (!bundledSchema) {
-          throw new Error("Bundled schema is empty or undefined.");
-        }
-        socket.send("update-ui", bundledSchema);
-      } catch (error) {
-        socket.send("error", error);
-        Logger.error(`Error bundling schema: ${error}`);
-      }
+      // await this.emitToRoom(
+      // 	serverSocket,
+      // 	path.basename(activeFile),
+      // 	activeFile,
+      // );
     });
 
     const editor = window.activeTextEditor;
@@ -145,6 +143,23 @@ export class PreviewController extends BaseController {
     if (preview) {
       preview.panel.reveal(ViewColumn.Active);
       this.eventEmitter.fire(this.uri);
+    }
+  }
+
+  private async emitToRoom(
+    socket: Socket,
+    room: string,
+    activeFile: string
+  ): Promise<void> {
+    try {
+      const bundledSchema = await bundle(activeFile);
+      if (!bundledSchema) {
+        throw new Error("Bundled schema is empty or undefined.");
+      }
+      socket.to(room).emit("update-ui", bundledSchema);
+    } catch (error) {
+      socket.to(room).emit("error", error);
+      Logger.error(`Error bundling schema: ${error}`);
     }
   }
 }
