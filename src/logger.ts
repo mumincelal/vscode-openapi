@@ -2,7 +2,7 @@ import { window } from "vscode";
 
 export class Logger {
   private static readonly instance =
-    window.createOutputChannel("VsCode OpenAPI");
+    window.createOutputChannel("VSCode OpenAPI");
 
   private constructor() {}
 

@@ -1,145 +1,129 @@
-<!DOCTYPE html>
 <!-- HTML for static distribution bundle build -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>OpenAPI Editor</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      font-family: Roboto,sans-serif;
-      font-size: .8em;
-      line-height: 1.42857143;
-      margin: 0px;
-    }
-    #swagger-editor .editor-wrapper #ace-editor {
-      height: 100% !important;
-    }
-    #errors-container {
-      color: rgb(53, 52, 52);
-      background: #fafafa;
-      padding: 10px;
-      font-family: Roboto,sans-serif;
-    }
-    #error-message{
-      font-size: 1.3em;
-    }
-    #errors {
-      color: #690606;
-      font-size: 1.0em !important;
-      /* white-space: pre-wrap; */
-    }
-    #editor-wrapper {
-      height: 100%;
-      border:1em solid #000;
-      border:none;
-    }
-    .Pane2 {
-      overflow-y: scroll;
-      width: 100% !important;
-    }
-  </style>
   <link href="node_modules/swagger-ui-dist/swagger-ui.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="node_modules/swagger-ui-dist/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="node_modules/swagger-ui-dist/favicon-16x16.png" sizes="16x16" />
 </head>
 <body>
     <div id="swagger-editor"></div>
+
     <script src="node_modules/swagger-ui-dist/swagger-ui-bundle.js"> </script>
     <script src="node_modules/swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       function buildSwaggerUI(jsonSpec) {
         const ui = SwaggerUIBundle({
-          spec: jsonSpec,
+          // The ID of a DOM element inside which SwaggerUI will put its user interface.
           dom_id: '#swagger-editor',
+          // A JavaScript object describing the OpenAPI definition.
+          spec: jsonSpec,
+          // The name of a component available via the plugin system to use as the top-level layout for Swagger UI.
+          layout: 'BaseLayout', // 'StandaloneLayout' is also available.
+          // Plugin functions to use in Swagger UI.
+          plugins: [SwaggerUIBundle.plugins.DownloadUrl],
+          // Presets to use in Swagger UI
           presets: [
-            SwaggerUIBundle.presets.apis
+            SwaggerUIBundle.presets.apis,
+            SwaggerUIStandalonePreset
           ],
-          layout: "BaseLayout"
-        })
-        window.editor = ui;
+          // // Enables deep linking for tags and operations.
+          // deepLinking: true,
+          // // Controls the display of operationId in operations list.
+          // displayOperationId: false,
+          // // Expansion depth for models
+          // defaultModelsExpandDepth: 1,
+          // // Expansion depth for the model on the model-example section.
+          // defaultModelExpandDepth: 1,
+          // // Controls how the model is shown when the API is first rendered.
+          // defaultModelRendering: '["example"*, "model"]',
+          // // Controls the display of the request duration (in milliseconds) for "Try it out" requests.
+          // displayRequestDuration: false,
+          // // Controls the default expansion setting for the operations and tags. It can be 'list' (expands only the tags), 'full' (expands the tags and operations) or 'none' (expands nothing).
+          // docExpansion: '["list"*, "full", "none"]',
+          // // Enables filtering. The top bar will show an edit box that you can use to filter the tagged operations that are shown.
+          // filter: false,
+          // // Limits the number of tagged operations displayed to at most this many
+          // maxDisplayedTags: 10,
+          // // Apply a sort to the operation list of each API. It can be 'alpha' (sort by paths alphanumerically), 'method' (sort by HTTP method) or a function (see Array.prototype.sort() to know how sort function works).
+          // operationsSorter: 'alpha',
+          // // Controls the display of vendor extension (x-) fields and values for Operations, Parameters, Responses, and Schema.
+          // showExtensions: false,
+          // // Controls the display of extensions (pattern, maxLength, minLength, maximum, minimum) fields and values for Parameters.
+          // showCommonExtensions: false,
+          // // Apply a sort to the tag list of each API. It can be 'alpha' (sort by paths alphanumerically) or a function (see Array.prototype.sort() to learn how to write a sort function). Two tag name strings are passed to the sorter for each pass.
+          // tagsSorter: 'alpha',
+          // // Sanitizer will leave style, class and data-* attributes untouched on all HTML Elements declared inside markdown strings. This parameter is Deprecated and will be removed in 4.0.0
+          // useUnsafeMarkdown: false,
+          // // Syntax highlighting of payloads and cURL command, can be otherwise an object with the activated and theme properties.
+          // syntaxHighlight: false,
+          // // Whether syntax highlighting should be activated or not.
+          // // syntaxHighlight: {
+          // //   activated: true
+          // // },
+          // // Highlight.js syntax coloring theme to use. (Only these 7 styles are available.)
+          // // syntaxHighlight: {
+          // //   theme: '["agate"*, "arta", "monokai", "nord", "obsidian", "tomorrow-night", "idea"]'
+          // // },
+          // // Controls whether the "Try it out" section should be enabled by default.
+          // tryItOutEnabled: false,
+          // // Enables the request snippet section. When disabled, the legacy curl snippet will be used.
+          // requestSnippetsEnabled: false,
+          // // Default configuration section for the requestSnippets plugin.
+          // requestSnippets: {
+          //   generators: {
+          //     curl_bash: {
+          //       title: "cURL (bash)",
+          //       syntax: "bash"
+          //     },
+          //     curl_powershell: {
+          //       title: "cURL (PowerShell)",
+          //       syntax: "powershell"
+          //     },
+          //     curl_cmd: {
+          //       title: "cURL (CMD)",
+          //       syntax: "bash"
+          //     },
+          //   },
+          //   defaultExpanded: true,
+          //   languages: null,
+          // },
+          // // An array of command line options available to the curl command. This can be set on the mutated request in the requestInterceptor function.
+          // request: {
+          //   curlOptions: ["-g", "--limit-rate 20k"]
+          // },
+          // // Uses the mutated request returned from a requestInterceptor to produce the curl command in the UI, otherwise the request before the requestInterceptor was applied is used.
+          // showMutatedRequest: true,
+          // // List of HTTP methods that have the “Try it out” feature enabled. An empty array disables “Try it out” for all operations. This does not filter the operations from the display.
+          // supportedSubmitMethods: ["get", "put", "post", "delete", "options", "head", "patch", "trace"],
+          // // By default, Swagger UI attempts to validate specs against swagger.io’s online validator. You can use this parameter to set a different validator URL, for example for locally deployed validators (Validator Badge). Setting it to either none, 127.0.0.1 or localhost will disable validation.
+          // validatorUrl: "https://validator.swagger.io/validator", // OR null
+          // // Enables passing credentials, as defined in the Fetch standard, in CORS requests that are sent by the browser. Note that Swagger UI cannot currently set cookies cross-domain (see swagger-js#1163) - as a result, you will have to rely on browser-supplied cookies (which this setting enables sending) that Swagger UI cannot control.
+          // withCredentials: false,
+          // // It persists authorization data and it would not be lost on browser close/refresh.
+          // persistAuthorization: false
+        });
+
+        window.ui = ui;
       }
 
-      window.onload = function () {
-        var errorsContainer = document.getElementById('errors-container');
-        var errors = document.getElementById('errors');
+      window.onload = function() {
+        const socket = io.connect();
+        const fileHash = '%FILE_HASH%';
 
-        var socket = io.connect();
+        socket.emit('INITIALIZE', {
+          fileHash
+        }, (jsonSpec) => buildSwaggerUI(jsonSpec));
 
-        socket.on('update-ui', function(data) {
-          // Only build Swagger UI when a valid spec is received
-          if (!window.editor) {
-            buildSwaggerUI(data);
-          } else {
-            editor.specActions.updateLoadingStatus("success");
-            editor.specActions.updateSpec(data);
-          }
 
-          var scrollElement = document.getElementsByClassName('Pane2')[0];
-          var tempScrollTop = scrollElement ? scrollElement.scrollTop : 0;
-
-          var swaggerEditor = document.getElementById('swagger-editor');
-          swaggerEditor.style.display = 'block';
-          errorsContainer.style.display = 'none';
-
-          if (tempScrollTop > 0) {
-            setTimeout(function() {
-              scrollElement.scrollTop = tempScrollTop;
-            }, 100);
-          }
+        socket.on('UPDATE', (jsonSpec) => {
+          buildSwaggerUI(jsonSpec);
         });
-
-        socket.on('error', function(data) {
-          errorsContainer.style.display = 'block';
-          var swaggerEditor = document.getElementById('swagger-editor');
-          swaggerEditor.style.display = 'none';
-          data = data.replace(/[^\\]\\n/g, '<br>').replace(/\\t/g, '&emsp;');
-          errors.innerHTML = data;
-        });
-
-        socket.emit('prepare-ui', {});
       }
     </script>
-
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position:absolute;width:0;height:0">
-      <defs>
-        <symbol viewBox="0 0 20 20" id="unlocked">
-          <path d="M15.8 8H14V5.6C14 2.703 12.665 1 10 1 7.334 1 6 2.703 6 5.6V6h2v-.801C8 3.754 8.797 3 10 3c1.203 0 2 .754 2 2.199V8H4c-.553 0-1 .646-1 1.199V17c0 .549.428 1.139.951 1.307l1.197.387C5.672 18.861 6.55 19 7.1 19h5.8c.549 0 1.428-.139 1.951-.307l1.196-.387c.524-.167.953-.757.953-1.306V9.199C17 8.646 16.352 8 15.8 8z"></path>
-        </symbol>
-
-        <symbol viewBox="0 0 20 20" id="locked">
-          <path d="M15.8 8H14V5.6C14 2.703 12.665 1 10 1 7.334 1 6 2.703 6 5.6V8H4c-.553 0-1 .646-1 1.199V17c0 .549.428 1.139.951 1.307l1.197.387C5.672 18.861 6.55 19 7.1 19h5.8c.549 0 1.428-.139 1.951-.307l1.196-.387c.524-.167.953-.757.953-1.306V9.199C17 8.646 16.352 8 15.8 8zM12 8H8V5.199C8 3.754 8.797 3 10 3c1.203 0 2 .754 2 2.199V8z"/>
-        </symbol>
-
-        <symbol viewBox="0 0 20 20" id="close">
-          <path d="M14.348 14.849c-.469.469-1.229.469-1.697 0L10 11.819l-2.651 3.029c-.469.469-1.229.469-1.697 0-.469-.469-.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-.469-.469-.469-1.228 0-1.697.469-.469 1.228-.469 1.697 0L10 8.183l2.651-3.031c.469-.469 1.228-.469 1.697 0 .469.469.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c.469.469.469 1.229 0 1.698z"/>
-        </symbol>
-
-        <symbol viewBox="0 0 20 20" id="large-arrow">
-          <path d="M13.25 10L6.109 2.58c-.268-.27-.268-.707 0-.979.268-.27.701-.27.969 0l7.83 7.908c.268.271.268.709 0 .979l-7.83 7.908c-.268.271-.701.27-.969 0-.268-.269-.268-.707 0-.979L13.25 10z"/>
-        </symbol>
-
-        <symbol viewBox="0 0 20 20" id="large-arrow-down">
-          <path d="M17.418 6.109c.272-.268.709-.268.979 0s.271.701 0 .969l-7.908 7.83c-.27.268-.707.268-.979 0l-7.908-7.83c-.27-.268-.27-.701 0-.969.271-.268.709-.268.979 0L10 13.25l7.418-7.141z"/>
-        </symbol>
-
-
-        <symbol viewBox="0 0 24 24" id="jump-to">
-          <path d="M19 7v4H5.83l3.58-3.59L8 6l-6 6 6 6 1.41-1.41L5.83 13H21V7z"/>
-        </symbol>
-
-        <symbol viewBox="0 0 24 24" id="expand">
-          <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
-        </symbol>
-
-      </defs>
-    </svg>
-    <pre id='errors-container'>
-      <div id='error-message'>There was an error while processing your files. Please fix the error and save the file.</div>
-      <div id='errors'></div>
-    </pre>
   </body>
 </html>
