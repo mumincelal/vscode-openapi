@@ -2,23 +2,29 @@ import { window } from "vscode";
 
 export class Logger {
   private static readonly instance =
-    window.createOutputChannel("VsCode OpenAPI");
+    window.createOutputChannel("VSCode OpenAPI");
 
   private constructor() {}
 
   public static log(message: string): void {
-    Logger.instance.appendLine(`[log] ${message}`);
+    Logger.instance.appendLine(`[LOG] ${new Date().toISOString()}: ${message}`);
   }
 
   public static error(message: string): void {
-    Logger.instance.appendLine(`[error] ${message}`);
+    Logger.instance.appendLine(
+      `[ERROR] ${new Date().toISOString()}: ${message}`
+    );
   }
 
   public static info(message: string): void {
-    Logger.instance.appendLine(`[info] ${message}`);
+    Logger.instance.appendLine(
+      `[INFO] ${new Date().toISOString()}: ${message}`
+    );
   }
 
   public static warn(message: string): void {
-    Logger.instance.appendLine(`[warn] ${message}`);
+    Logger.instance.appendLine(
+      `[WARN] ${new Date().toISOString()}: ${message}`
+    );
   }
 }

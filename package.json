@@ -24,7 +24,7 @@
     "commands": [
       {
         "command": "vscode-openapi.preview",
-        "category": "VsCode OpenAPI",
+        "category": "VSCode OpenAPI",
         "title": "Preview Swagger File"
       }
     ],
@@ -34,17 +34,17 @@
         {
           "when": "resourceLangId == json",
           "command": "vscode-openapi.preview",
-          "group": "OpenAPIPreviewer"
+          "group": "OpenAPIViewer"
         },
         {
           "when": "resourceLangId == yaml",
           "command": "vscode-openapi.preview",
-          "group": "OpenAPIPreviewer"
+          "group": "OpenAPIViewer"
         },
         {
           "when": "resourceLangId == yml",
           "command": "vscode-openapi.preview",
-          "group": "OpenAPIPreviewer"
+          "group": "OpenAPIViewer"
         }
       ]
     }
@@ -54,6 +54,7 @@
     "build": "rimraf out && tsc -p ./",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
+    "publish": "pnpm run pretest && changeset publish",
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "biome lint --write",
     "format": "biome format --write",
@@ -61,24 +62,28 @@
     "test": "vscode-test",
     "prepare": "git config core.hooksPath .hooks && chmod +x .hooks/*"
   },
+  "dependencies": {
+    "@apidevtools/json-schema-ref-parser": "^14.0.2",
+    "@apidevtools/swagger-parser": "^12.0.0",
+    "express": "^5.1.0",
+    "js-yaml": "^4.1.0",
+    "socket.io": "^4.8.1",
+    "swagger-ui-dist": "^5.25.2"
+  },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@changesets/cli": "^2.29.5",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@types/express": "^5.0.2",
+    "@types/express": "^5.0.3",
+    "@types/js-yaml": "^4.0.9",
     "@types/mocha": "^10.0.10",
-    "@types/node": "~22.15.29",
-    "@types/vscode": "^1.100.0",
+    "@types/node": "~24.0.3",
+    "@types/vscode": "^1.101.0",
     "@vscode/test-cli": "^0.0.11",
     "@vscode/test-electron": "^2.5.2",
-    "lint-staged": "^16.1.0",
+    "lint-staged": "^16.1.2",
     "rimraf": "^6.0.1",
     "typescript": "^5.8.3"
-  },
-  "dependencies": {
-    "@apidevtools/json-schema-ref-parser": "^13.0.2",
-    "express": "^5.1.0",
-    "socket.io": "^4.8.1",
-    "swagger-ui-dist": "^5.22.0"
   }
 }

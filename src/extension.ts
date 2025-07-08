@@ -3,17 +3,19 @@
  * Import the module and reference it with the alias vscode in your code below
  */
 import * as vscode from "vscode";
-import { Command } from "./commands/base.command";
-import { PreviewCommand } from "./commands/preview.commad";
-import { PreviewController } from "./controllers/preview.controller";
+import { Command } from "./base/base.command";
+import { PreviewCommand } from "./preview/preview.command";
+import { PreviewController } from "./preview/preview.controller";
 
+/**
+ * This method is called when your extension is activated.
+ * Your extension is activated the very first time the command is executed.
+ *
+ * @param context - The extension context that provides access to the extension's state and lifecycle.
+ */
 export function activate(context: vscode.ExtensionContext): void {
-  const previewService = new PreviewController(
-    context,
-    "vscode-openapi://preview",
-    9999
-  );
-  register(context, new PreviewCommand(previewService), "preview");
+  const previewController = new PreviewController(context);
+  registerCommand(context, new PreviewCommand(previewController), "preview");
 }
 
 /**
@@ -24,7 +26,7 @@ export function activate(context: vscode.ExtensionContext): void {
  * @param command - The command to register.
  * @param commandName - The name of the command to register.
  */
-const register = (
+const registerCommand = (
   context: vscode.ExtensionContext,
   command: Command,
   commandName: string
@@ -55,6 +57,10 @@ const handleError = (error: Error) => {
   return error;
 };
 
+/**
+ * This method is called when your extension is deactivated.
+ * It can be used to clean up resources or connections.
+ */
 export function deactivate(): void {
   // Clean up any resources or connections
 }
