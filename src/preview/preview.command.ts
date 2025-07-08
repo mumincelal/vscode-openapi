@@ -1,4 +1,3 @@
-import { Uri } from "vscode";
 import { BaseCommand } from "../base/base.command";
 import { PreviewController } from "./preview.controller";
 

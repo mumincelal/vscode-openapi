@@ -8,6 +8,12 @@
   <link href="node_modules/swagger-ui-dist/swagger-ui.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="node_modules/swagger-ui-dist/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="node_modules/swagger-ui-dist/favicon-16x16.png" sizes="16x16" />
+  <style>
+    body {
+			margin: 0;
+			background: #fafafa;
+		}
+  </style>
 </head>
 <body>
     <div id="swagger-editor"></div>
@@ -23,7 +29,7 @@
           // A JavaScript object describing the OpenAPI definition.
           spec: jsonSpec,
           // The name of a component available via the plugin system to use as the top-level layout for Swagger UI.
-          layout: 'BaseLayout', // 'StandaloneLayout' is also available.
+          layout: 'StandaloneLayout', // 'StandaloneLayout' is also available.
           // Plugin functions to use in Swagger UI.
           plugins: [SwaggerUIBundle.plugins.DownloadUrl],
           // Presets to use in Swagger UI
@@ -31,49 +37,49 @@
             SwaggerUIBundle.presets.apis,
             SwaggerUIStandalonePreset
           ],
-          // // Enables deep linking for tags and operations.
-          // deepLinking: true,
-          // // Controls the display of operationId in operations list.
+          // Enables deep linking for tags and operations.
+          deepLinking: true,
+          // Controls the display of operationId in operations list.
           // displayOperationId: false,
-          // // Expansion depth for models
+          // Expansion depth for models
           // defaultModelsExpandDepth: 1,
-          // // Expansion depth for the model on the model-example section.
+          // Expansion depth for the model on the model-example section.
           // defaultModelExpandDepth: 1,
-          // // Controls how the model is shown when the API is first rendered.
+          // Controls how the model is shown when the API is first rendered.
           // defaultModelRendering: '["example"*, "model"]',
-          // // Controls the display of the request duration (in milliseconds) for "Try it out" requests.
+          // Controls the display of the request duration (in milliseconds) for "Try it out" requests.
           // displayRequestDuration: false,
-          // // Controls the default expansion setting for the operations and tags. It can be 'list' (expands only the tags), 'full' (expands the tags and operations) or 'none' (expands nothing).
+          // Controls the default expansion setting for the operations and tags. It can be 'list' (expands only the tags), 'full' (expands the tags and operations) or 'none' (expands nothing).
           // docExpansion: '["list"*, "full", "none"]',
-          // // Enables filtering. The top bar will show an edit box that you can use to filter the tagged operations that are shown.
+          // Enables filtering. The top bar will show an edit box that you can use to filter the tagged operations that are shown.
           // filter: false,
-          // // Limits the number of tagged operations displayed to at most this many
+          // Limits the number of tagged operations displayed to at most this many
           // maxDisplayedTags: 10,
-          // // Apply a sort to the operation list of each API. It can be 'alpha' (sort by paths alphanumerically), 'method' (sort by HTTP method) or a function (see Array.prototype.sort() to know how sort function works).
+          // Apply a sort to the operation list of each API. It can be 'alpha' (sort by paths alphanumerically), 'method' (sort by HTTP method) or a function (see Array.prototype.sort() to know how sort function works).
           // operationsSorter: 'alpha',
-          // // Controls the display of vendor extension (x-) fields and values for Operations, Parameters, Responses, and Schema.
+          // Controls the display of vendor extension (x-) fields and values for Operations, Parameters, Responses, and Schema.
           // showExtensions: false,
-          // // Controls the display of extensions (pattern, maxLength, minLength, maximum, minimum) fields and values for Parameters.
+          // Controls the display of extensions (pattern, maxLength, minLength, maximum, minimum) fields and values for Parameters.
           // showCommonExtensions: false,
-          // // Apply a sort to the tag list of each API. It can be 'alpha' (sort by paths alphanumerically) or a function (see Array.prototype.sort() to learn how to write a sort function). Two tag name strings are passed to the sorter for each pass.
-          // tagsSorter: 'alpha',
-          // // Sanitizer will leave style, class and data-* attributes untouched on all HTML Elements declared inside markdown strings. This parameter is Deprecated and will be removed in 4.0.0
+          // Apply a sort to the tag list of each API. It can be 'alpha' (sort by paths alphanumerically) or a function (see Array.prototype.sort() to learn how to write a sort function). Two tag name strings are passed to the sorter for each pass.
+          tagsSorter: 'alpha',
+          // Sanitizer will leave style, class and data-* attributes untouched on all HTML Elements declared inside markdown strings. This parameter is Deprecated and will be removed in 4.0.0
           // useUnsafeMarkdown: false,
-          // // Syntax highlighting of payloads and cURL command, can be otherwise an object with the activated and theme properties.
-          // syntaxHighlight: false,
-          // // Whether syntax highlighting should be activated or not.
-          // // syntaxHighlight: {
-          // //   activated: true
-          // // },
-          // // Highlight.js syntax coloring theme to use. (Only these 7 styles are available.)
-          // // syntaxHighlight: {
-          // //   theme: '["agate"*, "arta", "monokai", "nord", "obsidian", "tomorrow-night", "idea"]'
-          // // },
-          // // Controls whether the "Try it out" section should be enabled by default.
+          // Syntax highlighting of payloads and cURL command, can be otherwise an object with the activated and theme properties.
+          syntaxHighlight: true,
+          // Whether syntax highlighting should be activated or not.
+          // syntaxHighlight: {
+          //   activated: true
+          // },
+          // Highlight.js syntax coloring theme to use. (Only these 7 styles are available.)
+          // syntaxHighlight: {
+          //   theme: '["agate"*, "arta", "monokai", "nord", "obsidian", "tomorrow-night", "idea"]'
+          // },
+          // Controls whether the "Try it out" section should be enabled by default.
           // tryItOutEnabled: false,
-          // // Enables the request snippet section. When disabled, the legacy curl snippet will be used.
+          // Enables the request snippet section. When disabled, the legacy curl snippet will be used.
           // requestSnippetsEnabled: false,
-          // // Default configuration section for the requestSnippets plugin.
+          // Default configuration section for the requestSnippets plugin.
           // requestSnippets: {
           //   generators: {
           //     curl_bash: {
@@ -92,19 +98,19 @@
           //   defaultExpanded: true,
           //   languages: null,
           // },
-          // // An array of command line options available to the curl command. This can be set on the mutated request in the requestInterceptor function.
+          // An array of command line options available to the curl command. This can be set on the mutated request in the requestInterceptor function.
           // request: {
           //   curlOptions: ["-g", "--limit-rate 20k"]
           // },
-          // // Uses the mutated request returned from a requestInterceptor to produce the curl command in the UI, otherwise the request before the requestInterceptor was applied is used.
+          // Uses the mutated request returned from a requestInterceptor to produce the curl command in the UI, otherwise the request before the requestInterceptor was applied is used.
           // showMutatedRequest: true,
-          // // List of HTTP methods that have the “Try it out” feature enabled. An empty array disables “Try it out” for all operations. This does not filter the operations from the display.
+          // List of HTTP methods that have the “Try it out” feature enabled. An empty array disables “Try it out” for all operations. This does not filter the operations from the display.
           // supportedSubmitMethods: ["get", "put", "post", "delete", "options", "head", "patch", "trace"],
-          // // By default, Swagger UI attempts to validate specs against swagger.io’s online validator. You can use this parameter to set a different validator URL, for example for locally deployed validators (Validator Badge). Setting it to either none, 127.0.0.1 or localhost will disable validation.
+          // By default, Swagger UI attempts to validate specs against swagger.io’s online validator. You can use this parameter to set a different validator URL, for example for locally deployed validators (Validator Badge). Setting it to either none, 127.0.0.1 or localhost will disable validation.
           // validatorUrl: "https://validator.swagger.io/validator", // OR null
-          // // Enables passing credentials, as defined in the Fetch standard, in CORS requests that are sent by the browser. Note that Swagger UI cannot currently set cookies cross-domain (see swagger-js#1163) - as a result, you will have to rely on browser-supplied cookies (which this setting enables sending) that Swagger UI cannot control.
+          // Enables passing credentials, as defined in the Fetch standard, in CORS requests that are sent by the browser. Note that Swagger UI cannot currently set cookies cross-domain (see swagger-js#1163) - as a result, you will have to rely on browser-supplied cookies (which this setting enables sending) that Swagger UI cannot control.
           // withCredentials: false,
-          // // It persists authorization data and it would not be lost on browser close/refresh.
+          // It persists authorization data and it would not be lost on browser close/refresh.
           // persistAuthorization: false
         });
 
