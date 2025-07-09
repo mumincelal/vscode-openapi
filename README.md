@@ -1,4 +1,6 @@
-# vscode-openapi README
+# vscode-openapi
+
+![Logo](/images/logo.png)
 
 This is the README for your extension "vscode-openapi". After writing up a brief description, we recommend including the following sections.
 

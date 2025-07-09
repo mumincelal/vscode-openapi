@@ -19,6 +19,7 @@
   "categories": ["Other"],
   "keywords": ["vscode", "openapi", "swagger", "api", "development", "preview"],
   "main": "./out/extension.js",
+  "icon": "images/logo.png",
   "activationEvents": [],
   "contributes": {
     "commands": [
