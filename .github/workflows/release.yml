@@ -37,6 +37,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Configure Git User
+        run: |
+          git config --global user.name "mumincelal"
+          git config --global user.email "mumincelalpinar@gmail.com"
+
       - name: Release It
         run: npx release-it
         env:
