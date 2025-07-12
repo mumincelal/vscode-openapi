@@ -39,13 +39,12 @@ jobs:
 
       - name: Configure Git User
         run: |
-          git config --global user.name "mumincelal"
-          git config --global user.email "mumincelalpinar@gmail.com"
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Release It
         run: npx release-it
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
