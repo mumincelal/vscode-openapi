@@ -71,3 +71,6 @@ You can author your README using Visual Studio Code. Here are some useful editor
 * [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**
+
+OVSX_PAT=d9108e4a-43ed-4b7c-8982-a5b44a033d1d
+VSCODE_PAT=4Z3n4k6zNKuVKEvRMqoeNslxGAV2rtFBNZ4uCC9YAMqONOpGfvGIJQQJ99BGACAAAAAAAAAAAAASAZDO2BEi
