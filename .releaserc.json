@@ -1,0 +1,28 @@
+{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/npm",
+    "@semantic-release/changelog",
+    "@semantic-release/github",
+    "@semantic-release/git",
+    "semantic-release-vsce"
+  ],
+  "prepare": [
+    "@semantic-release/npm",
+    "@semantic-release/changelog",
+    "@semantic-release/git",
+    {
+      "path": "semantic-release-vsce",
+      "packageVsix": "mumincelal.vscode-openapi.vsix"
+    }
+  ],
+  "publish": [
+    "semantic-release-vsce",
+    {
+      "path": "@semantic-release/github",
+      "assets": "mumincelal.vscode-openapi.vsix"
+    }
+  ]
+}
