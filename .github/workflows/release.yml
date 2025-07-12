@@ -36,6 +36,11 @@ jobs:
         with:
           version: latest
 
+      - name: Install vsce
+        run: |
+          pnpm add -g vsce
+          echo "$(pnpm bin -g)" >> $GITHUB_PATH
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
