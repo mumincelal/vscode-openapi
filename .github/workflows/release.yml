@@ -35,7 +35,7 @@ jobs:
           version: latest
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile --prod
 
       - name: Configure Git User
         run: |
@@ -45,6 +45,7 @@ jobs:
       - name: Release It
         run: npx release-it
         env:
+          SKIP_HOOKS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
