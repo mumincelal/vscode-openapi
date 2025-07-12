@@ -2,7 +2,7 @@
   "name": "vscode-openapi",
   "displayName": "vscode-openapi",
   "description": "A VS Code extension for viewing OpenAPI specs to streamline API development.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "publisher": "mumincelal",
   "homepage": "https://github.com/mumincelal/vscode-openapi",
