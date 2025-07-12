@@ -1,3 +1,32 @@
 #!/usr/bin/env sh
 
+# Exit early if in a CI environment (like GitHub Actions)
+if [ "$CI" = "true" ]; then
+  exit 0
+fi
+
+# Check if the --no-verify flag was passed to git commit
+# This is a bit more complex as the flag isn't directly passed to the hook,
+# but rather affects how Git calls the hook.
+# However, if pre-commit is skipped, it implies --no-verify is working.
+
+# If the commit message is already provided (e.g., by -m flag),
+# commitizen should ideally not run, but sometimes hooks are stubborn.
+# $2 is the commit message source. If it's 'message' (from -m) and not 'template' or 'merge',
+# you might want to skip commitizen.
+# This check is often reliable for skipping when a message is provided directly.
+if [ "$2" = "message" ] || [ "$2" = "template" ] || [ "$2" = "merge" ]; then
+    # If a message is already being processed from a direct -m, a template, or a merge,
+    # and we specifically want to skip commitizen for automated commits,
+    # we can add a more specific check.
+    # A robust way is to check for CI or an explicit skip var.
+    # Given your scenario with release-it, the $2 (message source) being 'message'
+    # when release-it commits is the key.
+    if [ -n "$CI" ] || [ -n "$SKIP_COMMITIZEN" ]; then
+        exit 0 # Exit without running commitizen
+    fi
+fi
+
+
+# Original commitizen command
 exec < /dev/tty && npx cz --hook || true
