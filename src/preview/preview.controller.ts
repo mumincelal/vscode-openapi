@@ -12,7 +12,6 @@ export class PreviewController extends BaseController {
 
   constructor(protected context: vscode.ExtensionContext) {
     super(context);
-
     this.previewServer = new PreviewServer("localhost", 9999);
   }
 
@@ -81,19 +80,6 @@ export class PreviewController extends BaseController {
       inlinePreview.disposable,
       watcher
     );
-
-    // vscode.workspace.onDidChangeTextDocument((event) => {
-    //   if (event.document === vscode.window.activeTextEditor?.document) {
-    //     const fileName = event.document.fileName;
-    //     const fileHash = hashString(fileName.toLowerCase());
-    //     const fileContent = event.document.getText();
-    //     const parsedContent = parseFileContent(
-    //       fileContent,
-    //       event.document.languageId
-    //     );
-    //     this.previewServer.update(fileName, fileHash, parsedContent);
-    //   }
-    // });
   }
 }
 

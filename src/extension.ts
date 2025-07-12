@@ -4,6 +4,7 @@
  */
 import * as vscode from "vscode";
 import { Command } from "./base/base.command";
+import { ExtensionController } from "./extension/extension.controller";
 import { PreviewCommand } from "./preview/preview.command";
 import { PreviewController } from "./preview/preview.controller";
 
@@ -14,6 +15,7 @@ import { PreviewController } from "./preview/preview.controller";
  * @param context - The extension context that provides access to the extension's state and lifecycle.
  */
 export function activate(context: vscode.ExtensionContext): void {
+  new ExtensionController().loadRedhatExtension();
   const previewController = new PreviewController(context);
   registerCommand(context, new PreviewCommand(previewController), "preview");
 }
