@@ -1,5 +1,5 @@
-name: Build Project
-run-name: Build Project
+name: Build
+run-name: Build
 
 on:
   pull_request:
