@@ -3,18 +3,20 @@ run-name: Release
 
 on:
   workflow_dispatch:
-  # push:
-  #   tags:
-  #     - 'v*'
 
 permissions:
   contents: read
-  pull-requests: write
+  pull-requests: read
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
+    if: >
+      ${{
+        github.repository_owner == 'mumincelal' &&
+        github.actor == 'mumincelal'
+      }}
     runs-on: ubuntu-latest
     permissions:
       contents: write # to create release
@@ -43,8 +45,8 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Release It
-        run: npx release-it
+        run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
