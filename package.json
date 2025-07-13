@@ -4,6 +4,7 @@
   "description": "A VS Code extension for viewing OpenAPI specs to streamline API development.",
   "version": "1.0.0",
   "license": "MIT",
+  "private": "true",
   "publisher": "mumincelal",
   "homepage": "https://github.com/mumincelal/vscode-openapi",
   "repository": {
@@ -62,7 +63,6 @@
     "build": "rimraf out && tsc -p ./",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "publish": "pnpm run pretest && changeset publish",
     "pretest": "pnpm run compile && pnpm run lint",
     "semantic-release": "semantic-release",
     "lint": "biome lint --write",
