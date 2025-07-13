@@ -9,7 +9,6 @@
     "semantic-release-vsce"
   ],
   "prepare": [
-    "@semantic-release/npm",
     "@semantic-release/changelog",
     "@semantic-release/git",
     {
