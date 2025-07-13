@@ -23,14 +23,6 @@ jobs:
       issues: write # to post issue comments
       pull-requests: write # to create pull request
     steps:
-
-      - name: Get GitHub App Token
-        uses: actions/create-github-app-token@v2
-        id: app-token
-        with:
-          app-id: ${{ secrets.ADMIN_PUBLISHER_APP_ID }}
-          private-key: ${{ secrets.ADMIN_PUBLISHER_PRIVATE_KEY }}
-
       - name: Checkout Repo
         uses: actions/checkout@v4
 
@@ -50,6 +42,6 @@ jobs:
       - name: Semantic Release
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
           # OVSX_PAT: ${{ secrets.OVSX_PAT }}
