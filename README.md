@@ -1,4 +1,4 @@
-# Barrelify - Visual Studio Code Extension
+# vscode-openapi - Visual Studio Code Extension
 
 [![semantic-release](https://img.shields.io/badge/semantic--release-angular-red?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/mumincelal.vscode-openapi?label=VS%20Code%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=mumincelal.vscode-openapi)
