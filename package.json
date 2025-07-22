@@ -1,6 +1,6 @@
 {
   "name": "vscode-openapi",
-  "displayName": "vscode-openapi",
+  "displayName": "OpenAPI (Swagger) Viewer",
   "description": "A VS Code extension for viewing OpenAPI specs to streamline API development.",
   "version": "1.0.0",
   "license": "MIT",
