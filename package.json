@@ -26,7 +26,7 @@
   "contributes": {
     "commands": [
       {
-        "command": "vscode-openapi.preview",
+        "command": "vscode-openapify.preview",
         "category": "VSCode OpenAPI",
         "title": "Preview Swagger File"
       }
@@ -36,17 +36,17 @@
       "explorer/context": [
         {
           "when": "resourceLangId == json",
-          "command": "vscode-openapi.preview",
+          "command": "vscode-openapify.preview",
           "group": "OpenAPIViewer"
         },
         {
           "when": "resourceLangId == yaml",
-          "command": "vscode-openapi.preview",
+          "command": "vscode-openapify.preview",
           "group": "OpenAPIViewer"
         },
         {
           "when": "resourceLangId == yml",
-          "command": "vscode-openapi.preview",
+          "command": "vscode-openapify.preview",
           "group": "OpenAPIViewer"
         }
       ]
