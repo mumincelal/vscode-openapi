@@ -37,7 +37,7 @@ const registerCommand = (
     command.execute(...args).catch(handleError);
 
   const disposable = vscode.commands.registerCommand(
-    `vscode-openapi.${commandName}`,
+    `vscode-openapify.${commandName}`,
     proxy
   );
 
