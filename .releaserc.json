@@ -13,14 +13,14 @@
     "@semantic-release/git",
     {
       "path": "semantic-release-vsce",
-      "packageVsix": "mumincelal.openapi.vsix"
+      "packageVsix": "mumincelal.vscode-openapify.vsix"
     }
   ],
   "publish": [
     "semantic-release-vsce",
     {
       "path": "@semantic-release/github",
-      "assets": "mumincelal.openapi.vsix"
+      "assets": "mumincelal.vscode-openapify.vsix"
     }
   ]
 }
