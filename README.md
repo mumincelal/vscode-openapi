@@ -1,73 +1,31 @@
-# vscode-openapi
+# Barrelify - Visual Studio Code Extension
 
-![Logo](/images/logo.png)
+[![semantic-release](https://img.shields.io/badge/semantic--release-angular-red?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/mumincelal.vscode-openapi?label=VS%20Code%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=mumincelal.vscode-openapi)
+[![Open VSX Registry](https://img.shields.io/open-vsx/v/mumincelal/vscode-openapi?label=Open%20VSX%20Registry)](https://open-vsx.org/extension/mumincelal/vscode-openapi)
 
-This is the README for your extension "vscode-openapi". After writing up a brief description, we recommend including the following sections.
+## How to use
 
-## Features
+### Using the context menu
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Right click on a folder in the Explorer pane.
+- Select this command: `Preview Swagger`.
+- This command will create a preview of the Swagger file in the selected file.
 
-For example if there is an image subfolder under your extension project workspace:
+### Using the command palette
 
-\!\[feature X\]\(images/feature-x.png\)
+- Open a file that contains a Swagger file in the editor.
+- Bring up the command palette, and select `Preview Swagger`.
+- This command will create a preview of the Swagger file in the selected file.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Changelog
 
-## Requirements
+- [https://github.com/mumincelal/vscode-openapi/blob/master/CHANGELOG.md](https://github.com/mumincelal/vscode-openapi/blob/master/CHANGELOG.md)
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## Contributors
 
-## Extension Settings
+- [Mümin Celal Pinar](https://github.com/mumincelal)
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## License
 
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+MIT
