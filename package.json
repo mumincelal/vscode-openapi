@@ -59,11 +59,11 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "pnpm run compile",
+    "vscode:prepublish": "rimraf out && tsc -p ./",
     "build": "rimraf out && tsc -p ./",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "pnpm run compile && pnpm run lint",
+    "pretest": "tsc -p ./ && biome lint --write",
     "semantic-release": "semantic-release",
     "lint": "biome lint --write",
     "format": "biome format --write",
