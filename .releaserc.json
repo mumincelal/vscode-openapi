@@ -6,16 +6,14 @@
     "@semantic-release/changelog",
     "@semantic-release/github",
     "@semantic-release/git",
-    "semantic-release-vsce"
+    [
+      "semantic-release-vsce",
+      {
+        "packageVsix": "mumincelal.vscode-openapi.vsix"
+      }
+    ]
   ],
-  "prepare": [
-    "@semantic-release/changelog",
-    "@semantic-release/git",
-    {
-      "path": "semantic-release-vsce",
-      "packageVsix": "mumincelal.vscode-openapi.vsix"
-    }
-  ],
+  "prepare": ["@semantic-release/changelog", "@semantic-release/git"],
   "publish": [
     "semantic-release-vsce",
     {
