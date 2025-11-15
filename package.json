@@ -75,7 +75,7 @@
     "@apidevtools/json-schema-ref-parser": "^14.2.1",
     "@apidevtools/swagger-parser": "^12.1.0",
     "express": "^5.1.0",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "socket.io": "^4.8.1",
     "swagger-ui-dist": "^5.29.5"
   },
