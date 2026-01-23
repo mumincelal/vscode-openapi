@@ -1,5 +1,5 @@
-import * as vscode from "vscode";
-import { BaseController } from "./base.controller";
+import type * as vscode from "vscode";
+import type { BaseController } from "./base.controller";
 
 export interface Command {
   execute(uri?: vscode.Uri): Promise<void>;

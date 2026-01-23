@@ -117,7 +117,7 @@
         window.ui = ui;
       }
 
-      window.onload = function() {
+      window.onload = () => {
         const socket = io.connect();
         const fileHash = '%FILE_HASH%';
 

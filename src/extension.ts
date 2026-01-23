@@ -3,7 +3,7 @@
  * Import the module and reference it with the alias vscode in your code below
  */
 import * as vscode from "vscode";
-import { Command } from "./base/base.command";
+import type { Command } from "./base/base.command";
 import { ExtensionController } from "./extension/extension.controller";
 import { PreviewCommand } from "./preview/preview.command";
 import { PreviewController } from "./preview/preview.controller";

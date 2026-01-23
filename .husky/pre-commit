@@ -1,0 +1,1 @@
+npx lint staged && npx tsc -p ./ && npx rimraf out

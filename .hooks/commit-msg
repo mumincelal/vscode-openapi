@@ -1,8 +1,0 @@
-#!/usr/bin/env sh
-
-# Exit early if in a CI environment (like GitHub Actions)
-if [ "$CI" = "true" ]; then
-  exit 0
-fi
-
-npx --no -- commitlint --edit $1

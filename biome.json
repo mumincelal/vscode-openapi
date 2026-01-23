@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.10/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.12/schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -8,7 +8,14 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**"]
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/out",
+      "!**/dist",
+      "!**/build",
+      "!**/.dockerignore"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -21,15 +28,7 @@
     "bracketSpacing": true,
     "expand": "auto",
     "formatWithErrors": false,
-    "useEditorconfig": true,
-    "includes": [
-      "**",
-      "!**/node_modules",
-      "!**/.next",
-      "!**/dist",
-      "!**/build",
-      "!**/.dockerignore"
-    ]
+    "useEditorconfig": true
   },
   "linter": {
     "enabled": true,
@@ -40,6 +39,9 @@
       },
       "complexity": {
         "noUselessFragments": "error"
+      },
+      "correctness": {
+        "noUnusedImports": "error"
       }
     }
   },
@@ -56,9 +58,6 @@
     },
     "formatter": {
       "enabled": true
-    },
-    "parser": {
-      "tailwindDirectives": true
     }
   },
   "assist": {

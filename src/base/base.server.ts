@@ -1,5 +1,5 @@
-import { type Server as HttpServer } from "node:http";
-import { type Server as SocketIoServer } from "socket.io";
+import type { Server as HttpServer } from "node:http";
+import type { Server as SocketIoServer } from "socket.io";
 
 export interface Server {
   initialize(rootPath: string): Promise<void>;
