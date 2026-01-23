@@ -7,6 +7,7 @@ import type { Command } from "./base/base.command";
 import { ExtensionController } from "./extension/extension.controller";
 import { PreviewCommand } from "./preview/preview.command";
 import { PreviewController } from "./preview/preview.controller";
+import { ValidationController } from "./validation/validation.controller";
 
 /**
  * This method is called when your extension is activated.
@@ -16,8 +17,13 @@ import { PreviewController } from "./preview/preview.controller";
  */
 export function activate(context: vscode.ExtensionContext): void {
   new ExtensionController().loadRedhatExtension();
+
+  // Initialize preview functionality
   const previewController = new PreviewController(context);
   registerCommand(context, new PreviewCommand(previewController), "preview");
+
+  // Initialize validation for OpenAPI/Swagger files
+  new ValidationController(context);
 }
 
 /**

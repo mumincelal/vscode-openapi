@@ -33,7 +33,11 @@
   ],
   "main": "./out/extension.js",
   "icon": "images/logo.png",
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:json",
+    "onLanguage:yaml",
+    "onLanguage:yml"
+  ],
   "contributes": {
     "commands": [
       {

@@ -10,7 +10,7 @@
         }
       },
       "then": {
-        "$ref": "./out/schemas/swagger.json"
+        "$ref": "./out/schemas/swagger-2.0.json"
       }
     },
     "openapi": {
@@ -22,7 +22,7 @@
         }
       },
       "then": {
-        "$ref": "./out/schemas/OpenAPI.json"
+        "$ref": "./out/schemas/openapi-3.0.json"
       }
     }
   }
