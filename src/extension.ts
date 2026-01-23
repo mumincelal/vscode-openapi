@@ -7,6 +7,7 @@ import type { Command } from "./base/base.command";
 import { ExtensionController } from "./extension/extension.controller";
 import { PreviewCommand } from "./preview/preview.command";
 import { PreviewController } from "./preview/preview.controller";
+import { TreeViewController } from "./treeview/treeview.controller";
 import { ValidationController } from "./validation/validation.controller";
 
 /**
@@ -24,6 +25,9 @@ export function activate(context: vscode.ExtensionContext): void {
 
   // Initialize validation for OpenAPI/Swagger files
   new ValidationController(context);
+
+  // Initialize tree view for OpenAPI/Swagger files
+  new TreeViewController(context);
 }
 
 /**

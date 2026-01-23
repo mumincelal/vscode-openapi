@@ -44,10 +44,41 @@
         "command": "vscode-openapify.preview",
         "category": "VSCode OpenAPI",
         "title": "Preview Swagger File"
+      },
+      {
+        "command": "vscode-openapify.refreshTreeView",
+        "category": "VSCode OpenAPI",
+        "title": "Refresh OpenAPI Explorer",
+        "icon": "$(refresh)"
       }
     ],
-    "keybindings": [],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "openapiExplorerContainer",
+          "title": "OpenAPI Explorer",
+          "icon": "$(symbol-interface)"
+        }
+      ]
+    },
+    "views": {
+      "openapiExplorerContainer": [
+        {
+          "id": "openapiExplorer",
+          "name": "Structure",
+          "icon": "",
+          "when": "resourceLangId == json || resourceLangId == yaml || resourceLangId == yml"
+        }
+      ]
+    },
     "menus": {
+      "view/title": [
+        {
+          "command": "vscode-openapify.refreshTreeView",
+          "when": "view == openapiExplorer",
+          "group": "navigation"
+        }
+      ],
       "explorer/context": [
         {
           "when": "resourceLangId == json",
