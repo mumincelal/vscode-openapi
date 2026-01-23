@@ -13,7 +13,8 @@
     "@semantic-release/git",
     {
       "path": "semantic-release-vsce",
-      "packageVsix": "mumincelal.vscode-openapify.vsix"
+      "packageVsix": "mumincelal.vscode-openapify.vsix",
+      "gitCommitArgs": "--no-verify"
     }
   ],
   "publish": [
