@@ -1,3 +1,16 @@
+# [1.1.0](https://github.com/mumincelal/vscode-openapi/compare/v1.0.0...v1.1.0) (2026-01-23)
+
+
+### Bug Fixes
+
+* dont run linter on CI ([5cfba37](https://github.com/mumincelal/vscode-openapi/commit/5cfba37af51f8a69631c74e3a022651acbdbf791))
+
+
+### Features
+
+* add file validation ([9af2b5b](https://github.com/mumincelal/vscode-openapi/commit/9af2b5b33d53de3505b012f7b7f49855d994ef3c))
+* add treeview ([57cf5b6](https://github.com/mumincelal/vscode-openapi/commit/57cf5b6918ed9798e2b0fdc625094e53b32ce476))
+
 # 1.0.0 (2025-07-22)
 
 
