@@ -15,29 +15,14 @@
     "url": "https://github.com/mumincelal/vscode-openapi/issues"
   },
   "engines": {
-    "vscode": "1.108.1"
+    "vscode": "1.125.0"
   },
-  "extensionDependencies": [
-    "redhat.vscode-yaml"
-  ],
-  "categories": [
-    "Other"
-  ],
-  "keywords": [
-    "vscode",
-    "openapi",
-    "swagger",
-    "api",
-    "development",
-    "preview"
-  ],
+  "extensionDependencies": ["redhat.vscode-yaml"],
+  "categories": ["Other"],
+  "keywords": ["vscode", "openapi", "swagger", "api", "development", "preview"],
   "main": "./out/extension.js",
   "icon": "images/logo.png",
-  "activationEvents": [
-    "onLanguage:json",
-    "onLanguage:yaml",
-    "onLanguage:yml"
-  ],
+  "activationEvents": ["onLanguage:json", "onLanguage:yaml", "onLanguage:yml"],
   "contributes": {
     "commands": [
       {
